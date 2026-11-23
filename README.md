@@ -29,6 +29,7 @@ hospitalId, arrivalTime, abxGiven, abxTime (shown only if abxGiven = Y), hypoten
 
 ## Known limits
 Only completed new responses are loaded; no failure alerts; fake data only.
+<img width="940" height="703" alt="image" src="https://github.com/user-attachments/assets/d8fbc76f-8014-4b14-96b5-17fdbf6dbc71" />
 
 ## Issues I ran into and how I fixed them
 
