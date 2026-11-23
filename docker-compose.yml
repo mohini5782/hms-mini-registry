@@ -1,0 +1,45 @@
+services:
+  registry_db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: registry
+      POSTGRES_PASSWORD: registry_pw
+      POSTGRES_DB: registry
+    ports:
+      - "5433:5432"
+    volumes:
+      - registry_data:/var/lib/postgresql/data
+
+  limesurvey_db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: lime
+      POSTGRES_PASSWORD: lime_pw
+      POSTGRES_DB: limesurvey
+    volumes:
+      - lime_data:/var/lib/postgresql/data
+
+  limesurvey:
+    image: martialblog/limesurvey:6-apache
+    depends_on:
+      - limesurvey_db
+    ports:
+      - "8080:8080"
+    environment:
+      DB_TYPE: pgsql
+      DB_HOST: limesurvey_db
+      DB_PORT: "5432"
+      DB_NAME: limesurvey
+      DB_USERNAME: lime
+      DB_PASSWORD: lime_pw
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin_pw_123
+      ADMIN_NAME: Local Admin
+      ADMIN_EMAIL: admin@example.com
+    volumes:
+      - lime_uploads:/var/www/html/upload
+
+volumes:
+  registry_data:
+  lime_data:
+  lime_uploads:
